@@ -1,6 +1,7 @@
 package com.cinema.visitor.api;
 
 import com.cinema.visitor.model.Visitor;
+import com.cinema.visitor.model.WithdrawDto;
 import com.cinema.visitor.service.VisitorService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,7 @@ public class VisitorController {
 
     @PutMapping("withdraw/{id}")
     public Visitor reduceBalance(@PathVariable(name = "id") UUID id,
-                                 @RequestBody(required = false) Double toWithdraw) {
+                                 @RequestBody(required = false) WithdrawDto toWithdraw) {
         return visitorService.updateVisitorBalance(id, toWithdraw);
     }
 

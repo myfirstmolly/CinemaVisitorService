@@ -1,6 +1,7 @@
 package com.cinema.visitor.service;
 
 import com.cinema.visitor.model.Visitor;
+import com.cinema.visitor.model.WithdrawDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,11 @@ public final class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public Visitor updateVisitorBalance(UUID visitorId, double toWithdraw) {
+    public Visitor updateVisitorBalance(UUID visitorId, WithdrawDto toWithdraw) {
         Visitor visitor = visitorRepository.findById(visitorId).get();
-        if(visitor.getMoney() <= toWithdraw)
+        if (visitor.getMoney() <= toWithdraw.getToWithdraw())
             throw new IllegalArgumentException("Not enough money");
-        visitor.setMoney(toWithdraw);
+        visitor.setMoney(visitor.getMoney() - toWithdraw.getToWithdraw());
         visitorRepository.save(visitor);
         return visitor;
     }
