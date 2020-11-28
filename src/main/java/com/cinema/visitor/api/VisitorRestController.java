@@ -16,7 +16,7 @@ import java.util.UUID;
 @RequestMapping("/visitor")
 @AllArgsConstructor
 @NoArgsConstructor
-public class VisitorController {
+public class VisitorRestController {
 
     @Autowired
     private VisitorService visitorService;

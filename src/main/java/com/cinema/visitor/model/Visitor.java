@@ -1,8 +1,8 @@
 package com.cinema.visitor.model;
 
-import lombok.AllArgsConstructor;
+import com.cinema.visitor.VisitorRequest;
+import com.cinema.visitor.VisitorResponse;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.Entity;
@@ -12,8 +12,6 @@ import java.util.UUID;
 @EnableAutoConfiguration
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public final class Visitor {
 
     @Id
@@ -23,10 +21,31 @@ public final class Visitor {
     private double money;
     private int age;
 
-    public Visitor(String name, double money, int age) {
+    public Visitor() {
         userId = UUID.randomUUID();
+    }
+
+    public Visitor(UUID userId, String name, double money, int age) {
+        this.userId = userId;
         this.name = name;
         this.money = money;
         this.age = age;
     }
+
+    public static Visitor fromVisitorRequest(VisitorRequest visitorRequest) {
+        return new Visitor(UUID.randomUUID(),
+                visitorRequest.getName(),
+                visitorRequest.getMoney(),
+                visitorRequest.getAge());
+    }
+
+    public VisitorResponse toVisitorResponse() {
+        return VisitorResponse.newBuilder().
+                setId(userId.toString()).
+                setName(name).
+                setMoney(money).
+                setAge(age).
+                build();
+    }
+
 }
