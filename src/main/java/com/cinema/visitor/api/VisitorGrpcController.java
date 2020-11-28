@@ -4,12 +4,14 @@ import com.cinema.visitor.*;
 import com.cinema.visitor.model.Visitor;
 import com.cinema.visitor.service.VisitorService;
 import io.grpc.stub.StreamObserver;
+import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@GRpcService
 public class VisitorGrpcController extends VisitorServiceGrpc.VisitorServiceImplBase {
     @Autowired
     private VisitorService visitorService;
